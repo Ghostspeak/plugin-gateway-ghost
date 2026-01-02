@@ -16,6 +16,7 @@
 import type { Plugin, IAgentRuntime, ModelHandler } from '@elizaos/core';
 import { ModelType, logger } from '@elizaos/core';
 import { parseConfig, type AIGatewayConfig } from './config';
+import { listFalModelsAction } from './actions';
 import {
   createTextSmallHandler,
   createTextLargeHandler,
@@ -33,6 +34,7 @@ import {
   createTokenizerDecodeHandler,
   createFalImageHandler,
   createFalVideoHandler,
+  createFalModelsProvider,
 } from './handlers';
 
 const PLUGIN_NAME = '@ghostspeak/plugin-gateway-ghost';
@@ -143,6 +145,9 @@ function createModelHandlers(config: AIGatewayConfig): Record<string, ModelHandl
   return handlers;
 }
 
+// Store config for provider access
+let pluginConfigCache: AIGatewayConfig | null = null;
+
 /**
  * AI Gateway Plugin
  */
@@ -182,6 +187,9 @@ export const aiGatewayPlugin: Plugin = {
           pluginConfig.FAL_PREFER_FOR_IMAGES || process.env.FAL_PREFER_FOR_IMAGES,
       });
 
+      // Store config for provider access
+      pluginConfigCache = config;
+
       // Create handlers
       const handlers = createModelHandlers(config);
 
@@ -215,6 +223,30 @@ export const aiGatewayPlugin: Plugin = {
       throw error;
     }
   },
+
+  // FAL models provider - provides model discovery context to the agent
+  providers: [
+    {
+      name: 'FAL_MODELS',
+      description: 'Provides information about available FAL.ai models for image, video, and 3D generation',
+      position: 50,
+      get: async () => {
+        if (!pluginConfigCache?.FAL_API_KEY) {
+          return {
+            text: 'FAL models: Not configured (FAL_API_KEY not set)',
+            data: { configured: false },
+          };
+        }
+
+        // Delegate to the provider factory
+        const provider = createFalModelsProvider(pluginConfigCache);
+        return provider.get();
+      },
+    },
+  ],
+
+  // Actions for interacting with FAL models
+  actions: [listFalModelsAction],
 
   // Export model handlers for static registration if needed
   models: {},

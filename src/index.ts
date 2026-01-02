@@ -40,7 +40,28 @@ export {
   createTextToSpeechHandler,
   createTokenizerEncodeHandler,
   createTokenizerDecodeHandler,
+  // FAL.ai handlers
+  createFalImageHandler,
+  createFalVideoHandler,
+  FAL_MODELS,
+  // FAL model discovery
+  fetchFalModels,
+  fetchAllFalModels,
+  getImageModels,
+  getVideoModels,
+  get3DModels,
+  searchModels,
+  getModel,
+  createFalModelsProvider,
+  type FalModel,
+  type FalModelMetadata,
+  type FalModelsResponse,
+  type FalModelSort,
+  type FalModelFilters,
 } from './handlers';
+
+// Actions
+export { listFalModelsAction } from './actions';
 
 // Utilities
 export { AIGatewayError, isRateLimitError, isAuthError } from './utils/error-handler';

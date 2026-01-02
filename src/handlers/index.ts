@@ -26,3 +26,20 @@ export { createTokenizerEncodeHandler, createTokenizerDecodeHandler } from './to
 
 // FAL.ai handlers for image and video generation
 export { createFalImageHandler, createFalVideoHandler, FAL_MODELS } from './fal';
+
+// FAL.ai model discovery
+export {
+  fetchFalModels,
+  fetchAllFalModels,
+  getImageModels,
+  getVideoModels,
+  get3DModels,
+  searchModels,
+  getModel,
+  createFalModelsProvider,
+  type FalModel,
+  type FalModelMetadata,
+  type FalModelsResponse,
+  type FalModelSort,
+  type FalModelFilters,
+} from './fal-models';
