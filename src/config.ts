@@ -3,6 +3,7 @@
  *
  * Zod schema for validating environment variables and plugin configuration.
  * Uses Vercel AI Gateway with January 2026 model defaults.
+ * Also supports FAL.ai for additional image and video generation models.
  */
 
 import { z } from 'zod';
@@ -45,6 +46,18 @@ export const aiGatewayConfigSchema = z.object({
   AI_GATEWAY_TTS_VOICE: z
     .enum(['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'])
     .default('alloy'),
+
+  // FAL.ai Configuration (optional - enables additional models)
+  FAL_API_KEY: z.string().optional(),
+
+  // FAL Image Models (defaults to FLUX Dev - fast and high quality)
+  FAL_IMAGE_MODEL: z.string().default('fal-ai/flux/dev'),
+
+  // FAL Video Models (image-to-video generation)
+  FAL_VIDEO_MODEL: z.string().default('fal-ai/minimax-video/image-to-video'),
+
+  // Use FAL for image generation instead of Vercel Gateway
+  FAL_PREFER_FOR_IMAGES: z.boolean().default(false),
 });
 
 export type AIGatewayConfig = z.infer<typeof aiGatewayConfigSchema>;
@@ -64,6 +77,11 @@ export function parseConfig(env: Record<string, string | undefined>): AIGatewayC
     AI_GATEWAY_TRANSCRIPTION_MODEL: env.AI_GATEWAY_TRANSCRIPTION_MODEL,
     AI_GATEWAY_TTS_MODEL: env.AI_GATEWAY_TTS_MODEL,
     AI_GATEWAY_TTS_VOICE: env.AI_GATEWAY_TTS_VOICE,
+    // FAL configuration
+    FAL_API_KEY: env.FAL_API_KEY,
+    FAL_IMAGE_MODEL: env.FAL_IMAGE_MODEL,
+    FAL_VIDEO_MODEL: env.FAL_VIDEO_MODEL,
+    FAL_PREFER_FOR_IMAGES: env.FAL_PREFER_FOR_IMAGES === 'true',
   });
 }
 

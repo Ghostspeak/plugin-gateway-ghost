@@ -23,3 +23,6 @@ export { createTranscriptionHandler } from './transcription';
 export { createTextToSpeechHandler } from './text-to-speech';
 
 export { createTokenizerEncodeHandler, createTokenizerDecodeHandler } from './tokenizer';
+
+// FAL.ai handlers for image and video generation
+export { createFalImageHandler, createFalVideoHandler, FAL_MODELS } from './fal';

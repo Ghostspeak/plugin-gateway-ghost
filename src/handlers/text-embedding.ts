@@ -34,6 +34,7 @@ export function createTextEmbeddingHandler(
       return new Array(3072).fill(0);
     }
 
+    console.log(`[AI Gateway] Generating embedding for text (${text.length} chars)`);
     const model = getEmbeddingModel(config, config.AI_GATEWAY_EMBEDDING_MODEL);
 
     const result = await embed({
@@ -41,6 +42,7 @@ export function createTextEmbeddingHandler(
       value: text,
     });
 
+    console.log(`[AI Gateway] Embedding generated (${result.embedding.length} dimensions)`);
     return result.embedding;
   };
 }

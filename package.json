@@ -1,7 +1,7 @@
 {
   "name": "@ghostspeak/plugin-gateway-ghost",
-  "description": "Unified Vercel AI Gateway plugin for ElizaOS - one API key for all model types",
-  "version": "0.1.2",
+  "description": "Unified AI Gateway plugin for ElizaOS - Vercel AI Gateway + FAL.ai for text, images, video, and more",
+  "version": "0.2.0",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -49,6 +49,7 @@
   "dependencies": {
     "@ai-sdk/openai-compatible": "^0.2.14",
     "@elizaos/core": "1.7.0",
+    "@fal-ai/client": "^1.8.1",
     "ai": "^4.3.16",
     "js-tiktoken": "^1.0.18",
     "zod": "^3.24.2"
@@ -126,6 +127,29 @@
         "description": "Default TTS voice. Default: alloy",
         "required": false,
         "default": "alloy"
+      },
+      "FAL_API_KEY": {
+        "type": "string",
+        "description": "FAL.ai API key (optional - enables video generation and alternative image models)",
+        "required": false
+      },
+      "FAL_IMAGE_MODEL": {
+        "type": "string",
+        "description": "FAL image model. Default: fal-ai/flux/dev",
+        "required": false,
+        "default": "fal-ai/flux/dev"
+      },
+      "FAL_VIDEO_MODEL": {
+        "type": "string",
+        "description": "FAL video model. Default: fal-ai/minimax-video/image-to-video",
+        "required": false,
+        "default": "fal-ai/minimax-video/image-to-video"
+      },
+      "FAL_PREFER_FOR_IMAGES": {
+        "type": "boolean",
+        "description": "Use FAL instead of Vercel Gateway for image generation. Default: false",
+        "required": false,
+        "default": false
       }
     }
   }
