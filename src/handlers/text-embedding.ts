@@ -28,8 +28,10 @@ export function createTextEmbeddingHandler(
       text = embedParams.text;
     }
 
+    // Handle empty text gracefully - ElizaOS tests with empty string during initialization
     if (!text || text.trim().length === 0) {
-      throw new Error('Text cannot be empty for embedding');
+      // Return a zero vector for empty text (3072 dimensions for text-embedding-3-large)
+      return new Array(3072).fill(0);
     }
 
     const model = getEmbeddingModel(config, config.AI_GATEWAY_EMBEDDING_MODEL);
