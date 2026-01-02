@@ -1,0 +1,132 @@
+{
+  "name": "@ghostspeak/plugin-gateway-ghost",
+  "description": "Unified Vercel AI Gateway plugin for ElizaOS - one API key for all model types",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "packageType": "plugin",
+  "platform": "node",
+  "license": "MIT",
+  "author": "Ghostspeak",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ghostspeak/plugin-gateway-ghost.git"
+  },
+  "homepage": "https://github.com/Ghostspeak/plugin-gateway-ghost#readme",
+  "bugs": {
+    "url": "https://github.com/Ghostspeak/plugin-gateway-ghost/issues"
+  },
+  "keywords": [
+    "elizaos",
+    "plugin",
+    "vercel",
+    "ai-gateway",
+    "llm",
+    "embeddings",
+    "image-generation",
+    "text-to-speech",
+    "transcription",
+    "claude",
+    "gpt",
+    "flux"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "dependencies": {
+    "@elizaos/core": "1.7.0",
+    "@ai-sdk/openai-compatible": "^0.2.14",
+    "ai": "^4.3.16",
+    "js-tiktoken": "^1.0.18",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@elizaos/cli": "^1.7.0",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "bun run build.ts",
+    "dev": "bun run build.ts --watch",
+    "test": "bun test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "agentConfig": {
+    "pluginType": "elizaos:plugin:1.0.0",
+    "pluginParameters": {
+      "AI_GATEWAY_API_KEY": {
+        "type": "string",
+        "description": "Vercel AI Gateway API key (required)",
+        "required": true
+      },
+      "AI_GATEWAY_BASE_URL": {
+        "type": "string",
+        "description": "Gateway endpoint URL. Default: https://ai-gateway.vercel.sh/v1",
+        "required": false,
+        "default": "https://ai-gateway.vercel.sh/v1"
+      },
+      "AI_GATEWAY_TEXT_SMALL_MODEL": {
+        "type": "string",
+        "description": "Small text model. Default: anthropic/claude-haiku-4.5",
+        "required": false,
+        "default": "anthropic/claude-haiku-4.5"
+      },
+      "AI_GATEWAY_TEXT_LARGE_MODEL": {
+        "type": "string",
+        "description": "Large text model. Default: anthropic/claude-opus-4.5",
+        "required": false,
+        "default": "anthropic/claude-opus-4.5"
+      },
+      "AI_GATEWAY_EMBEDDING_MODEL": {
+        "type": "string",
+        "description": "Embedding model. Default: openai/text-embedding-3-large",
+        "required": false,
+        "default": "openai/text-embedding-3-large"
+      },
+      "AI_GATEWAY_IMAGE_MODEL": {
+        "type": "string",
+        "description": "Image generation model. Default: bfl/flux-2-pro",
+        "required": false,
+        "default": "bfl/flux-2-pro"
+      },
+      "AI_GATEWAY_VISION_MODEL": {
+        "type": "string",
+        "description": "Vision/multimodal model. Default: xai/grok-2-vision",
+        "required": false,
+        "default": "xai/grok-2-vision"
+      },
+      "AI_GATEWAY_TRANSCRIPTION_MODEL": {
+        "type": "string",
+        "description": "Transcription model. Default: openai/whisper-1",
+        "required": false,
+        "default": "openai/whisper-1"
+      },
+      "AI_GATEWAY_TTS_MODEL": {
+        "type": "string",
+        "description": "Text-to-speech model. Default: openai/tts-1-hd",
+        "required": false,
+        "default": "openai/tts-1-hd"
+      },
+      "AI_GATEWAY_TTS_VOICE": {
+        "type": "string",
+        "description": "Default TTS voice. Default: alloy",
+        "required": false,
+        "default": "alloy"
+      }
+    }
+  }
+}
