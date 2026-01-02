@@ -34,8 +34,8 @@ export const aiGatewayConfigSchema = z.object({
     .string()
     .default('openai/text-embedding-3-large'),
 
-  // Image generation (FLUX is the current standard, not DALL-E)
-  AI_GATEWAY_IMAGE_MODEL: z.string().default('bfl/flux-2-pro'),
+  // Image generation (Google Imagen 4.0 via Vercel Gateway)
+  AI_GATEWAY_IMAGE_MODEL: z.string().default('google/imagen-4.0-generate'),
 
   // Vision/multimodal
   AI_GATEWAY_VISION_MODEL: z.string().default('xai/grok-2-vision'),
